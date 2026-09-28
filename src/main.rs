@@ -202,14 +202,14 @@ async fn add_vpn_routes(handle: &Handle, interface: &String) -> anyhow::Result<(
     let index = get_interface_index(interface, handle).await?;
 
     let bottom_half = RouteMessageBuilder::<Ipv4Addr>::new()
-        .destination_prefix(Ipv4Addr::new(0,0,0,0), 1)
+        .destination_prefix(Ipv4Addr::new(0, 0, 0, 0), 1)
         .output_interface(index)
         .build();
 
     handle.route().add(bottom_half).execute().await?;
 
     let top_half = RouteMessageBuilder::<Ipv4Addr>::new()
-        .destination_prefix(Ipv4Addr::new(128,0,0,0), 1)
+        .destination_prefix(Ipv4Addr::new(128, 0, 0, 0), 1)
         .output_interface(index)
         .build();
 
@@ -222,14 +222,14 @@ async fn del_vpn_routes(handle: &Handle, interface: &String) -> anyhow::Result<(
     let index = get_interface_index(interface, handle).await?;
 
     let bottom_half = RouteMessageBuilder::<Ipv4Addr>::new()
-        .destination_prefix(Ipv4Addr::new(0,0,0,0), 1)
+        .destination_prefix(Ipv4Addr::new(0, 0, 0, 0), 1)
         .output_interface(index)
         .build();
 
     handle.route().del(bottom_half).execute().await?;
 
     let top_half = RouteMessageBuilder::<Ipv4Addr>::new()
-        .destination_prefix(Ipv4Addr::new(128,0,0,0), 1)
+        .destination_prefix(Ipv4Addr::new(128, 0, 0, 0), 1)
         .output_interface(index)
         .build();
 
@@ -242,9 +242,10 @@ async fn get_interface_index(name: &String, handle: &Handle) -> anyhow::Result<u
     // get link by name
     let mut links = handle.link().get().match_name(name).execute();
 
-    let link = links.try_next().await?.ok_or_else(|| {
-        anyhow!("interface {name} not found!")
-    })?;
+    let link = links
+        .try_next()
+        .await?
+        .ok_or_else(|| anyhow!("interface {name} not found!"))?;
 
     Ok(link.header.index)
 }
