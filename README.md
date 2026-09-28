@@ -460,23 +460,37 @@ The present source has several assumptions worth understanding before relying on
 - Configuration can replace or add device state, but lifecycle behavior and peer removal need explicit design.
 
 ## 12. Steps to bring VPN up
+
+### VPS side:
+
 - configure VPS server as mentioned in point 6 (open port, configure nftable, enable forwarding as mentioned before)
 - create wgctl.toml with correct data and place it in same directoy as wgctl
 - first time create private and public keys using:
 ```bash
 sudo wgctl create-keys
 ```
-- create interfaces using:
+- create interfaces on peer VPS using:
 ```bash
 sudo wgctl create
 ```
-- bring VPN up
+
+### PC side:
+- create wgctl.toml with correct data and place it in same directoy as wgctl
+- create interfaces on peer PC using:
+```bash
+sudo wgctl create
+```
+- bring VPN up on peer PC
 ```bash
 sudo wgctl up --peer-name <PEER_NAME> --interface <INTERFACE_NAME> --interface-ip <INTERFACE_IP>/<CIDR>
 ```
 - later to bring it down
 ```bash
 sudo wgctl down --peer-name <PEER_NAME> --interface <INTERFACE_NAME> --interface-ip <INTERFACE_IP>/<CIDR>
+```
+- and delete interfaces on peer PC
+```bash
+sudo wgctl delete
 ```
 
 Since the tool is a learning project dont rely on it and inspect its output with `ip`, `wg`, and `nft` after each configuration step.
