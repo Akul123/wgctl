@@ -1,0 +1,13 @@
+[interface]
+name = "wg0"
+address = "<IP/CIDR>"
+private_key_path = "<path to private key>"
+mtu = 1420
+port = <PORT>
+
+[[peer]]
+peer_name = "clouding.io"
+public_key = "<public key>"
+endpoint = "<IP:PORT>"
+allowed_ips = ["0.0.0.0/0"]
+persistent_keepalive = 25

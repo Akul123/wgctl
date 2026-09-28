@@ -1,0 +1,8 @@
+/target
+AGENTS.md
+wgctl.toml
+private.key
+public.key
+private_server.key
+public_server.key
+TODO.md

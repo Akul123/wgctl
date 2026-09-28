@@ -1,0 +1,24 @@
+[package]
+name = "wgctl"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.104"
+base64 = "0.23.1"
+clap = { version = "=4.6.4", features = ["derive"] }
+futures = "0.3.34"
+futures-util = "0.3.34"
+genetlink = "0.3.0"
+getrandom = "0.4.3"
+ipnetwork = "0.21.1"
+netlink = "0.1.1"
+netlink-packet-core = "0.9.0"
+netlink-packet-generic = "0.5.0"
+netlink-packet-route = "0.33.0"
+netlink-packet-wireguard = "0.5.0"
+rtnetlink = "0.23.0"
+serde = { version = "1.0.229", features = ["derive"] }
+tokio = { version = "=1.53.1", features = ["full"] }
+toml = "1.1.6"
+x25519-dalek = "3.0.0"
